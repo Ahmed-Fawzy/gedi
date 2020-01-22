@@ -96,7 +96,12 @@ class GediCompletionProvider(GObject.Object, GtkSource.CompletionProvider):
         
         for completion in Jedi.get_script(document).completions():
             complete = completion.name
-            if jedi.__version__ <= (0,7,0):
+
+            # jedi version
+            jedi_ver = jedi.__version__
+            jedi_ver_tuple = tuple(map(int, jedi_ver.split('.')))
+
+            if jedi_ver_tuple <= (0,7,0):
                 doc=completion.doc
             else:
                 doc=completion.docstring()
